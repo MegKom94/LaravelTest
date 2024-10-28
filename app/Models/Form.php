@@ -15,9 +15,9 @@ class Form extends Model
     {
         return $this->belongsTo(FormType::class, 'id_type');
     }
-    public function get(){
-        return $this->where()
-    }
+    // public function get(){
+    //     return $this->where()
+    // }
     public function answers()
     {
         return $this->hasMany(FormAnswer::class, 'id_form');
