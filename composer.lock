@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
+    "content-hash": "bae05a8bcd265eb745e8b437fda6e93d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5241,6 +5241,43 @@
             "time": "2023-12-08T13:03:43+00:00"
         },
         {
+            "name": "tsyama/laravel-soft-delete-flag",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tsyama/laravel-soft-delete-flag.git",
+                "reference": "04c06618c7653ec8cc764a941fced4ee395dd16b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tsyama/laravel-soft-delete-flag/zipball/04c06618c7653ec8cc764a941fced4ee395dd16b",
+                "reference": "04c06618c7653ec8cc764a941fced4ee395dd16b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tsyama\\LaravelSoftDeleteFlag\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "tsyama",
+                    "email": "tsyama.desu@gmail.com"
+                }
+            ],
+            "description": "A Laravel package that can use Boolean column for soft deletes.",
+            "support": {
+                "issues": "https://github.com/tsyama/laravel-soft-delete-flag/issues",
+                "source": "https://github.com/tsyama/laravel-soft-delete-flag/tree/0.1.2"
+            },
+            "time": "2019-10-07T02:02:23+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.6.1",
             "source": {
@@ -7755,12 +7792,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.3|^8.0"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

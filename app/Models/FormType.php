@@ -5,11 +5,12 @@ use App\Common\Database\ConfigurableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Tsyama\LaravelSoftDeleteFlag\Traits\SoftDeleteFlagTrait;
 
 class FormType extends Model
 {
     use ConfigurableTrait;
-    use SoftDeletes;
+    use SoftDeleteFlagTrait;
 
     protected $table = 'forms_types';
     protected $fillable = [
@@ -22,6 +23,7 @@ class FormType extends Model
     const CREATED_AT = 'date_create';
     const UPDATED_AT = 'date_update';
     protected $dateFormat = 'U';
+    const DELETED_AT = 'is_deleted';
 
     public function forms()
     {

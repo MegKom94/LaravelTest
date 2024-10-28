@@ -1,12 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v0;
 
 use DB;
+use App\Http\Controllers\Controller;
 use App\Models\FormType;
 
 class FormTypeController extends Controller
 {
+    public function list()
+    {
+        $forms = FormType::get();
+        dd($forms->toArray());
+    }
     public function index()
     {
         $forms = FormType::get();
@@ -20,6 +26,6 @@ class FormTypeController extends Controller
     public function connection(){
         $result = FormType::find(1)->form;
         dd($result);
-        
+
     }
 }
