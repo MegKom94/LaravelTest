@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FormAnswer extends Model
 {
+    //надо заполнить
     protected $table = 'forms_answers';
     public $timestamps = false;
     public function form(){
