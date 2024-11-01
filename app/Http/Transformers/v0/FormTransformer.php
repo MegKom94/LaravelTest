@@ -18,7 +18,17 @@ class FormTransformer extends Transformer
         $response = [
             'id' => (int)$object->id,
             'text' => (string)$object->text,
-            // 'id_type' => (int)$object->id_type,
+            'id_type' => (int)$object->id_type,
+            'weight'=> (int)$object->weight,
+            'mnogo'=> (int)$object->mnogo,
+            'is_use'=> (int)$object->is_use,
+            'is_show'=> (int)$object->is_show,
+            'is_other'=> (int)$object->is_other,
+            'is_subject'=> (int)$object->is_subject,
+            'link'=> (string)$object->link,
+            'is_konkurs'=> (string)$object->is_konkurs,
+            'id_site'=> (int)$object->id_site,
+            'is_deleted'=> (int)$object->is_deleted,
         ];
 
         return $response;

@@ -23,9 +23,11 @@
 // });
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 // Route::get('/form', [FormTypeController::class, 'create']);
 // Route::get('/', [AdminController::class,'index']);
-Route::get('/', 'AdminController@index');
+// Route::get('/', 'AdminController@index');
+// Route::post('/create', 'AdminController@create');
 //Route::get('/form', 'app\Http\Controllers\FormController\FormController@index');
 // Route::get('/form', [FormController::class, 'index'])->name('index');

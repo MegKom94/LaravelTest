@@ -4,22 +4,46 @@
 <head>
   <meta charset="utf-8" />
   <title></title>
-  <h1>главная страница</h1>
+  <h2>Главная страница</h2>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  
-  @foreach($result as $header)
-    <h3>{{$header->title}}</h3>
-      @foreach ($header->forms as $form)
-          <div>{{$form->text}}</div>
-          @foreach ($form->answers as $answer)
-            <h5>{{$answer->text}}</h5>
-          @endforeach
-      @endforeach
-  @endforeach
 
+  <form name="create" method="POST" action="/create">
+    @csrf
+    <h3>Раздел</h3>
+    <div class="form-group col-md-6">
+      <input type="text" name='title' placeholder="Раздел">
+    </div>
+    <h3>Описание</h3>
+    <div>
+      <input type="text" name='description' placeholder="Описание">
+    </div>
+    <!-- <div>
+      <input type="number" name='weight' placeholder="Вес">
+    </div>
+    <div>
+      <input type="text" name='answer' placeholder="Варианты ответов">
+    </div> -->
+    <div>
+      <input type="checkbox" name="radio1" value="Radio button">
+      <span class="replyspan">Опрос для всех(включая не авторизованных)</span>
+    </div>
+    <div>
+      <input type="checkbox" name="radio2" value='1'>
+      <span class="replyspan">Опрос для учащихся</span>
+    </div>
+    <div>
+      <input type="checkbox" name="radio3" value='1'>
+      <span class="replyspan">Опрос для сотрудников</span>
+    </div>
+    <div>
+      <input type="checkbox" name="radio4" value="1">
+      <span class="replyspan">Опрос с привязкой к предметам и преподавателям</span>
+    </div>
+    <input type="submit" name='submit' value="Сохранить">
+  </form>
 </body>
 
 </html>

@@ -2,15 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Common\Database\ConfigurableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class FormAnswer extends Model
 {
-    //надо заполнить
+    protected $fillable = [
+        // 'id_form',
+        'text',
+        'is_field'
+    ];
+     //для сортировки. фильтров, пагинации и т.д.
+     use ConfigurableTrait;
+     protected $dateFormat = 'U';
     protected $table = 'forms_answers';
+    //По умолчанию Eloquent ожидает наличия в ваших таблицах столбцов updated_at и created_at, чтобы этого не было нужно прописать false
     public $timestamps = false;
     public function form(){
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(Form::class,'id_form');
     }
 }
