@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class FormAnswer extends Model
 {
     protected $fillable = [
-        // 'id_form',
         'text',
         'is_field'
     ];

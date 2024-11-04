@@ -13,43 +13,37 @@ class FormAnswerController extends Controller
 {
     public function list()
     {
-        $form = FormAnswer::get();
-        return new FormAnswerTransformer($form, []);
+        $answer = FormAnswer::get();
+        return new FormAnswerTransformer($answer, []);
     }
-    public function get(FormAnswer $formAnswer)
+    public function get(FormAnswer $answer)
     {
-        return new FormAnswerTransformer($formAnswer, []);
+        return new FormAnswerTransformer($answer, []);
     }
-    public function create(Request $request, FormAnswer $formAnswer)
+    public function create(Request $request, FormAnswer $answer)
     {
-        $form = $request->validate([
+        $form = $this->validateFormAnswer($request);
+        $answer->fill($form);
+        $answer->form()->associate($form['id_form']);
+        $answer->save();
+
+        return $this->ok();
+    }
+    public function edit(Request $request, FormAnswer $answer)
+    {
+        $form = $this->validateFormAnswer($request);
+        $answer->fill($form);
+        $answer->form()->associate($form['id_form']);
+        $answer->save();
+        
+        return $this->ok();
+    }
+    protected function validateFormAnswer($request)
+    {
+        return $request->validate([
             'id_form' => ['required', 'integer'],
             'text' => ['required', 'string'],
             'is_field' => ['required', Rule::in(0, 1)],
         ]);
-        $formAnswer->fill($form);
-        $formAnswer->form()->associate($form['id_form']);
-        $formAnswer->save();
-        
-        return $this->ok();
-    }
-    public function edit(Request $request, FormAnswer $formAnswer)
-    {
-        $form = $request->validate([
-            'id_form' => ['required', 'integer'],
-            'text' => ['required', 'string'],
-            'is_field' => ['required', Rule::in(0, 1)],
-        ]);
-        $formAnswer->fill($form);
-        $formAnswer->form()->associate($form['id_form']);
-        $formAnswer->save();
-        
-        return $this->ok();
-    }
-    //Связь один ко многим с моделью Form по id=1
-    public function connection()
-    {
-        $result = Form::find(1)->form_answer;
-        dd($result);
     }
 }

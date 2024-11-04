@@ -24,5 +24,4 @@ Route::group(['prefix' => 'anketa'], function () {
         Route::any('/{answer}/edit', 'FormAnswerController@edit');
         
     });
-    
 });

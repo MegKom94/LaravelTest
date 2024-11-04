@@ -36,35 +36,30 @@ class FormTypeController extends Controller
     }
     public function create(Request $request, FormType $form_type)
     {
-        $form = $request->validate([
-            'title'=> ['required','max:255', 'string'],
-            'description'=> ['required', 'max:255', 'string'],
-            'is_stydent'=> ['required', Rule::in(0,1), 'integer'],
-            //'is_stydent'=> ['nullable', Rule::in(0,1)],
-            //заполнение всех полей значениями, обязательно! чтобы не было ошибок
-            'is_empl'=> ['required',Rule::in(0,1), 'integer'],
-            'is_opros'=> ['required',Rule::in(0,1), 'integer'],
-            'id_site'=> ['required',Rule::in(0,1), 'integer']
-        ]);
+        $form = $this->validateFormType($request);
         $form_type->fill($form);
         $form_type->save();
         
         return $this->ok();     
     }
-    public function edit(Request $request, FormType $form_type)
+    public function edit(FormType $form_type, Request $request)
     {
-        $form = $request->validate([
-            'title'=> ['required','max:255', 'string'],
-            'description'=> ['required', 'max:255', 'string'],
-            'is_stydent'=> ['required', Rule::in(0,1), 'integer'],
-            'is_empl'=> ['required',Rule::in(0,1), 'integer'],
-            'is_opros'=> ['required',Rule::in(0,1), 'integer'],
-            'id_site'=> ['required',Rule::in(0,1), 'integer']
-        ]);
+        $form=$this->validateFormType($request);
         $form_type->fill($form);
         $form_type->save();
         
         return $this->ok();     
+    }
+    protected function validateFormType($request)
+    {
+        return $request->validate([
+            'title'=> ['required','max:255', 'string'],
+            'description'=> ['required', 'max:255', 'string'],
+            // 'is_stydent'=> ['required', Rule::in(0,1), 'integer'],
+            // 'is_empl'=> ['required',Rule::in(0,1), 'integer'],
+            // 'is_opros'=> ['required',Rule::in(0,1), 'integer'],
+            // 'id_site'=> ['required',Rule::in(0,1), 'integer']
+        ]);
     }
     public function createX()
     {

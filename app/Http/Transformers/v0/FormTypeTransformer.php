@@ -21,7 +21,7 @@ class FormTypeTransformer extends Transformer
             'id' => (int)$object->id,
             'title' => (string)$object->title,
             'description'=> (string)$object->description,
-            'is_stydent'=> (int)$object->is_stydent,
+            'is_student'=> (int)$object->is_student,
             'is_empl'=> (int)$object->is_empl,
             'is_opros'=> (int)$object->is_opros,
             'id_site'=> (int)$object->id_site,
