@@ -26,14 +26,19 @@ class FormTypeController extends Controller
         // $forms = $form_type->forms;
         // return new FormTransformer($forms, []);
         //возвращает трансформируемый объект (объект котрый нужно трансформировать(любой), формы чтобы добавить вопросы к форме)
-        return new FormTypeTransformer($form_type, ['forms']);
+        return new FormTypeTransformer($form_type, ['forms'=>'answers']);
     }
-    //Связь один ко многим с моделью FormType по id=1
-    public function connection(){
-        $result = FormType::find(1)->form;
-        dd($result);
+    public function statistics(FormType $form_type)
+    {
+        // dd($form_type['title']);
+        return new FormTypeTransformer($form_type, ['forms'=>['answers'=>['statistics']]]);
+    }
+    // //Связь один ко многим с моделью FormType по id=1
+    // public function connection(){
+    //     $result = FormType::find(1)->form;
+    //     dd($result);
 
-    }
+    // }
     public function create(Request $request, FormType $form_type)
     {
         $form = $this->validateFormType($request);
@@ -42,7 +47,7 @@ class FormTypeController extends Controller
         
         return $this->ok();     
     }
-    public function edit(FormType $form_type, Request $request)
+    public function edit(Request $request, FormType $form_type)
     {
         $form=$this->validateFormType($request);
         $form_type->fill($form);
@@ -50,6 +55,7 @@ class FormTypeController extends Controller
         
         return $this->ok();     
     }
+    
     protected function validateFormType($request)
     {
         return $request->validate([

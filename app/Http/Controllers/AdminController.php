@@ -71,7 +71,6 @@ class AdminController extends Controller
         // var_dump($array);
         // echo '</pre>';
         return view('home');
-
     }
 
     public function getViewRequest()

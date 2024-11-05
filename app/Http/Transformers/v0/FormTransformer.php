@@ -30,7 +30,12 @@ class FormTransformer extends Transformer
             'id_site'=> (int)$object->id_site,
             'is_deleted'=> (int)$object->is_deleted,
         ];
-
+        if ($this->needAppend('answers')) {
+            $response['answers'] = (new FormAnswerTransformer(
+                $object->answers,
+                $this->getNestedAppends('answers')
+            ))->toArray($request);
+        }
         return $response;
     }
 

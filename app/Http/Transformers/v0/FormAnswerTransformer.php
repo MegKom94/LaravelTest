@@ -2,6 +2,7 @@
 
 namespace App\Http\Transformers\v0;
 
+use App\Models\Form;
 use Illuminate\Http\Request;
 use App\Common\Resource\Transformer;
 use App\Models\FormAnswer;
@@ -21,6 +22,10 @@ class FormAnswerTransformer extends Transformer
             'id_form' => (int)$object->id_form,
             'is_field' => (int)$object->is_field
         ];
+        
+        if ($this->needAppend('statistics')) {
+           $response['count_answers']->$object
+        }
 
         return $response;
     }

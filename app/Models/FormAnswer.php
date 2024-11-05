@@ -20,4 +20,8 @@ class FormAnswer extends Model
     public function form(){
         return $this->belongsTo(Form::class,'id_form');
     }
+    public function answers_users()
+    {
+        return $this->hasMany(FormsUsers::class, 'id_answer');
+    }
 }

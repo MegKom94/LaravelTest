@@ -39,6 +39,19 @@ class FormController extends Controller
 
         return $this->ok();
     }
+    public function statistics(Request $request, Form $form)
+    {
+        
+    }
+    public function listAnswers(Form $form)
+    {
+        return new FormTransformer($form,['answers']);
+    }
+    // public function delete(Form $form)
+    // {
+        
+    //     return $this->ok();
+    // }
     protected function validateForm($request)
     {
         return $request->validate([

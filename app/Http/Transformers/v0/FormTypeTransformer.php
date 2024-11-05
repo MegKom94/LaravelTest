@@ -30,7 +30,7 @@ class FormTypeTransformer extends Transformer
         if ($this->needAppend('forms')) {
             $response['forms'] = (new FormTransformer(
                 $object->forms,
-                []
+                $this->getNestedAppends('forms')
             ))->toArray($request);
         }
 

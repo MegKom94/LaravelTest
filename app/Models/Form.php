@@ -40,7 +40,10 @@ class Form extends Model
     {
         return $this->belongsTo(FormType::class, 'id_type');
     }
-    //связи
+    public function answers_users()
+    {
+        return $this->hasMany(FormsUsers::class, 'id_type');
+    }
     public function answers()
     {
         return $this->hasMany(FormAnswer::class, 'id_form');
