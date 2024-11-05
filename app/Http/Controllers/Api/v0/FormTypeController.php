@@ -28,10 +28,21 @@ class FormTypeController extends Controller
         //возвращает трансформируемый объект (объект котрый нужно трансформировать(любой), формы чтобы добавить вопросы к форме)
         return new FormTypeTransformer($form_type, ['forms'=>'answers']);
     }
-    public function statistics(FormType $form_type)
+    public function statistics($form_type_id)
     {
-        // dd($form_type['title']);
-        return new FormTypeTransformer($form_type, ['forms'=>['answers'=>['statistics']]]);
+        $form_type = FormType::where('id', $form_type_id)
+            //жадная загрузка- достаем ("вопросы","связку связки") ->объЯВЛЯЕМ УСЛОВИЕ ПО КОТРОЙ БУЕТ ПРОХОДИТЬ ЖАДНАЯ СВЯЗКА 
+            ->with(['forms'=> function ($query){
+                $query->withCount('answers_users');
+            },
+            'forms.answers' => function($query){
+                //подзапрос где происходит подсчет внутренней связки
+                $query->withCount('answers_users');
+                
+            }])
+            ->first();
+        // dd($form_type);
+        return new FormTypeTransformer($form_type, ['forms'=>['answers'=>['statistics'], 'count_all_questions']]);
     }
     // //Связь один ко многим с моделью FormType по id=1
     // public function connection(){

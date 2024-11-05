@@ -9,8 +9,8 @@ use Tsyama\LaravelSoftDeleteFlag\Traits\SoftDeleteFlagTrait;
 class FormsUsers extends Model
 {
     use ConfigurableTrait;
-    use SoftDeleteFlagTrait;
-    protected $table=' forms_users';
+    // use SoftDelseteFlagTrait;
+    protected $table='forms_users';
     protected $fillable=[
         'id',
         // 'id_form',

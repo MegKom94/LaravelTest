@@ -42,7 +42,7 @@ class Form extends Model
     }
     public function answers_users()
     {
-        return $this->hasMany(FormsUsers::class, 'id_type');
+        return $this->hasMany(FormsUsers::class, 'id_form');
     }
     public function answers()
     {

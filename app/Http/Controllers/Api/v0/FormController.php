@@ -39,9 +39,15 @@ class FormController extends Controller
 
         return $this->ok();
     }
-    public function statistics(Request $request, Form $form)
+    public function statistics($form_id)
     {
-        
+        $form = Form::where('id',$form_id)->with(['answers' => function($query){
+            $query->withCount('answers_users');
+        }])
+        ->withCount('answers_users')
+        ->first();
+        // dd($form->toArray());
+        return new FormTransformer($form, ['answers'=>['statistics'],'count_all_questions']);
     }
     public function listAnswers(Form $form)
     {

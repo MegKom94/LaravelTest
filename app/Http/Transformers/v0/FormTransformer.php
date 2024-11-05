@@ -36,6 +36,11 @@ class FormTransformer extends Transformer
                 $this->getNestedAppends('answers')
             ))->toArray($request);
         }
+        if ($this->needAppend('count_all_questions')) {
+            // $response['count_answers'] = $object->answers_users()->count();
+            // dd($object->toArray());
+            $response['count_answers'] = $object->answers_users_count;
+        }
         return $response;
     }
 
