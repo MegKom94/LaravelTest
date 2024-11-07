@@ -17,16 +17,24 @@ class FormAnswerTransformer extends Transformer
     public function transform($object, Request $request)
     {
         $response = [
-            'id' => (int)$object->id,
-            'text' => (string)$object->text,
-            'id_form' => (int)$object->id_form,
-            'is_field' => (int)$object->is_field
+            'id' => (int) $object->id,
+            'text' => (string) $object->text,
+            // 'id_form' => (int)$object->id_form,
+            'is_field' => (int) $object->is_field
         ];
-        
+
         if ($this->needAppend('statistics')) {
-        //    $response['count_answers'] = $object->answers_users()->count();
-           $response['count_answers'] = $object->answers_users_count;
+            //    $response['count_answers'] = $object->answers_users()->count();
+            $response['count_answers'] = (int) $object->answers_users_count;
+            $all_answers_users_count = (int) $this->getNestedAppends('all_answers_users_count')[0];
+            // dd($response['count_answers']//$all_answers_users_count);
+            if ($all_answers_users_count) {
+                $response['percent_count_responses'] =  number_format(($response['count_answers'] / $all_answers_users_count * 100),2).'%';
+            } else {
+                $response['percent_count_responses'] = 0;
+            }
         }
+
 
         return $response;
     }

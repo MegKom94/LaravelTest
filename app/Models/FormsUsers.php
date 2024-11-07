@@ -15,7 +15,7 @@ class FormsUsers extends Model
         'id',
         // 'id_form',
         // 'id_answer',
-        // 'id_user',
+        'id_user',
         'answer',
         'other',
         'id_exec',

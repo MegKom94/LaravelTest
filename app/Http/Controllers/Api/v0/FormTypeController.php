@@ -19,30 +19,31 @@ class FormTypeController extends Controller
     }
     public function get(FormType $form_type)
     {
-       return new FormTypeTransformer($form_type, []);
+        return new FormTypeTransformer($form_type, []);
     }
     public function listQuestions(FormType $form_type)
     {
         // $forms = $form_type->forms;
         // return new FormTransformer($forms, []);
         //возвращает трансформируемый объект (объект котрый нужно трансформировать(любой), формы чтобы добавить вопросы к форме)
-        return new FormTypeTransformer($form_type, ['forms'=>'answers']);
+        return new FormTypeTransformer($form_type, ['forms' => 'answers']);
     }
     public function statistics($form_type_id)
     {
         $form_type = FormType::where('id', $form_type_id)
             //жадная загрузка- достаем ("вопросы","связку связки") ->объЯВЛЯЕМ УСЛОВИЕ ПО КОТРОЙ БУЕТ ПРОХОДИТЬ ЖАДНАЯ СВЯЗКА 
-            ->with(['forms'=> function ($query){
-                $query->withCount('answers_users');
-            },
-            'forms.answers' => function($query){
-                //подзапрос где происходит подсчет внутренней связки
-                $query->withCount('answers_users');
-                
-            }])
+            ->with([
+                'forms' => function ($query) {
+                    $query->withCount('all_answers_users');
+                },
+                'forms.answers' => function ($query) {
+                    //подзапрос где происходит подсчет внутренней связки
+                    $query->withCount('answers_users');
+                }
+            ])
             ->first();
-        // dd($form_type);
-        return new FormTypeTransformer($form_type, ['forms'=>['answers'=>['statistics'], 'count_all_questions']]);
+        // dd($form_type->toArray());
+        return new FormTypeTransformer($form_type, ['forms' => ['answers_with_statistics' => ['statistics'], 'count_all_questions_users']]);
     }
     // //Связь один ко многим с моделью FormType по id=1
     // public function connection(){
@@ -55,23 +56,23 @@ class FormTypeController extends Controller
         $form = $this->validateFormType($request);
         $form_type->fill($form);
         $form_type->save();
-        
-        return $this->ok();     
+
+        return $this->ok();
     }
     public function edit(Request $request, FormType $form_type)
     {
-        $form=$this->validateFormType($request);
+        $form = $this->validateFormType($request);
         $form_type->fill($form);
         $form_type->save();
-        
-        return $this->ok();     
+
+        return $this->ok();
     }
-    
+
     protected function validateFormType($request)
     {
         return $request->validate([
-            'title'=> ['required','max:255', 'string'],
-            'description'=> ['required', 'max:255', 'string'],
+            'title' => ['required', 'max:255', 'string'],
+            'description' => ['required', 'max:255', 'string'],
             // 'is_stydent'=> ['required', Rule::in(0,1), 'integer'],
             // 'is_empl'=> ['required',Rule::in(0,1), 'integer'],
             // 'is_opros'=> ['required',Rule::in(0,1), 'integer'],

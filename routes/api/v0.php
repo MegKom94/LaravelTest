@@ -16,6 +16,7 @@ Route::group(['prefix' => 'anketa'], function () {
         Route::any('/create', 'FormController@create');
         Route::any('/{form}', 'FormController@get');
         Route::any('/{form}/edit', 'FormController@edit');
+        // Route::any('/{form}/delete', 'FormController@delete');
         Route::any('/{form_id}/statistics', 'FormController@statistics');
         Route::any('/{form}/list_answers', 'FormController@listAnswers');
         Route::any('/{form}/delete', 'FormController@edit');

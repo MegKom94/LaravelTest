@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Common\Database\ConfigurableTrait;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Tsyama\LaravelSoftDeleteFlag\Traits\SoftDeleteFlagTrait;
 
@@ -40,9 +41,15 @@ class Form extends Model
     {
         return $this->belongsTo(FormType::class, 'id_type');
     }
-    public function answers_users()
+    public function all_answers_users()
     {
         return $this->hasMany(FormsUsers::class, 'id_form');
+    }
+    public function all_answers_users_people_count()
+    {
+        return $this->all_answers_users()
+            ->select(DB::raw('count(*) as count'))
+            ->groupBy('id_user');
     }
     public function answers()
     {

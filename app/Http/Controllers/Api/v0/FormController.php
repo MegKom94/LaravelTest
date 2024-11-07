@@ -5,20 +5,22 @@ namespace App\Http\Controllers\Api\v0;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\v0\FormTransformer;
 use App\Models\Form;
+use App\Models\FormsUsers;
 use App\Models\FormType;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class FormController extends Controller
 {
-    public function list(){
-        $question=Form::get();
-        return new FormTransformer($question,[]);
+    public function list()
+    {
+        $question = Form::get();
+        return new FormTransformer($question, []);
     }
     //получение результата запроса на получение списка вопросов по заголовку
     public function get(Form $form)
     {
-        return new FormTransformer($form,[]);
+        return new FormTransformer($form, []);
     }
 
     public function create(Request $request, Form $form)
@@ -41,28 +43,27 @@ class FormController extends Controller
     }
     public function statistics($form_id)
     {
-        $form = Form::where('id',$form_id)->with(['answers' => function($query){
-            $query->withCount('answers_users');
-        }])
-        ->withCount('answers_users')
-        ->first();
-        // dd($form->toArray());
-        return new FormTransformer($form, ['answers'=>['statistics'],'count_all_questions']);
+        $form = Form::where('id', $form_id)->with([
+            'answers' => function ($query) {
+                $query->withCount('answers_users');
+            }
+        ])
+            ->withCount('all_answers_users')
+            ->first();
+           
+        return new FormTransformer($form, ['answers' => ['statistics'], 'count_all_questions_users','answers_with_statistics']);
     }
     public function listAnswers(Form $form)
     {
-        return new FormTransformer($form,['answers']);
+        return new FormTransformer($form, ['answers']);
     }
-    // public function delete(Form $form)
-    // {
-        
-    //     return $this->ok();
-    // }
+
+
     protected function validateForm($request)
     {
         return $request->validate([
-            'text' => ['required','max:255','string'],
-            'id_type' => ['required','integer'],
+            'text' => ['required', 'string'],
+            'id_type' => ['required', 'integer'],
             // 'weight'=> ['integer','required'],
             // 'mnogo'=> ['integer','required'],
             // 'is_use'=> ['required',Rule::in(0,1)],
