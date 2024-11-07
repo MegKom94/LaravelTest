@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v0;
 
 use App\Http\Transformers\v0\FormTypeTransformer;
 use App\Http\Controllers\Controller;
+use App\Models\FormsUsers;
 use App\Models\FormType;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -39,7 +40,7 @@ class FormTypeController extends Controller
                 'forms.answers' => function ($query) {
                     //подзапрос где происходит подсчет внутренней связки
                     $query->withCount('answers_users');
-                }
+                },new FormsUsers()
             ])
             ->first();
         // dd($form_type->toArray());

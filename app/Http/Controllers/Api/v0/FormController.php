@@ -50,8 +50,7 @@ class FormController extends Controller
         ])
             ->withCount('all_answers_users')
             ->first();
-           
-        return new FormTransformer($form, ['answers' => ['statistics'], 'count_all_questions_users','answers_with_statistics']);
+        return new FormTransformer($form, ['answers_with_statistics' => ['statistics'], 'count_all_questions_users','answers_with_statistics']);
     }
     public function listAnswers(Form $form)
     {

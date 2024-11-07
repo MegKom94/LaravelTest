@@ -26,6 +26,8 @@ class FormAnswerTransformer extends Transformer
         if ($this->needAppend('statistics')) {
             //    $response['count_answers'] = $object->answers_users()->count();
             $response['count_answers'] = (int) $object->answers_users_count;
+            // dd($object->answers_users_count);
+            // exit;
             $all_answers_users_count = (int) $this->getNestedAppends('all_answers_users_count')[0];
             // dd($response['count_answers']//$all_answers_users_count);
             if ($all_answers_users_count) {
