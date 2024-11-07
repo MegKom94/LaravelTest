@@ -6,6 +6,7 @@ use App\Http\Transformers\v0\FormTypeTransformer;
 use App\Http\Controllers\Controller;
 use App\Models\FormsUsers;
 use App\Models\FormType;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -36,11 +37,14 @@ class FormTypeController extends Controller
             ->with([
                 'forms' => function ($query) {
                     $query->withCount('all_answers_users');
+                    $query->withCount(['all_answers_users as count_people' => function ($query) {
+                        $query->select(DB::raw('count(distinct(id_user))'));
+                    }]);
                 },
                 'forms.answers' => function ($query) {
                     //подзапрос где происходит подсчет внутренней связки
                     $query->withCount('answers_users');
-                },new FormsUsers()
+                }
             ])
             ->first();
         // dd($form_type->toArray());

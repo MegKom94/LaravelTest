@@ -7,6 +7,7 @@ use App\Http\Transformers\v0\FormTransformer;
 use App\Models\Form;
 use App\Models\FormsUsers;
 use App\Models\FormType;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -49,7 +50,11 @@ class FormController extends Controller
             }
         ])
             ->withCount('all_answers_users')
+            ->withCount(['all_answers_users as count_people' => function ($query) {
+                $query->select(DB::raw('count(distinct(id_user))'));
+            }])
             ->first();
+            //dd($form->toArray());
         return new FormTransformer($form, ['answers_with_statistics' => ['statistics'], 'count_all_questions_users','answers_with_statistics']);
     }
     public function listAnswers(Form $form)

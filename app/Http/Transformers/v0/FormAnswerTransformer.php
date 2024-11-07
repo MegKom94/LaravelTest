@@ -35,6 +35,14 @@ class FormAnswerTransformer extends Transformer
             } else {
                 $response['percent_count_responses'] = 0;
             }
+            
+            $count_users= (int) $this->getNestedAppends('count_users')[0];
+            if($count_users){
+                $response['percent_count_users'] = number_format(($response['count_answers'] /$count_users * 100),2).'%';
+            }else{
+                $response['percent_count_users'] = 0;
+            }
+            
         }
 
 

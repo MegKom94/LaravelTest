@@ -45,12 +45,6 @@ class Form extends Model
     {
         return $this->hasMany(FormsUsers::class, 'id_form');
     }
-    public function all_answers_users_people_count()
-    {
-        return $this->all_answers_users()
-            ->select(DB::raw('count(*) as count'))
-            ->groupBy('id_user');
-    }
     public function answers()
     {
         return $this->hasMany(FormAnswer::class, 'id_form');

@@ -49,8 +49,7 @@ class FormTransformer extends Transformer
                 $object->answers,
                 array_merge($this->getNestedAppends('answers_with_statistics'),
                  ['all_answers_users_count' => $object->all_answers_users_count,
-                  'all_answers_users_people_count' => $object->all_answers_users_people_count()
-                  //->pluck('count')->all()
+                  'count_users' => $object->count_people
                 ])
             ))->toArray($request);
         }
