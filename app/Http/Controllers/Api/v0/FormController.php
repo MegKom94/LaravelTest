@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\v0;
 
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\v0\FormTransformer;
+use App\Http\Transformers\v0\FormUserTransformer;
 use App\Models\Form;
 use App\Models\FormsUsers;
 use App\Models\FormType;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use \Illuminate\Pagination\Paginator;
 
 class FormController extends Controller
 {
@@ -42,7 +44,7 @@ class FormController extends Controller
 
         return $this->ok();
     }
-    public function statistics($form_id)
+    public function statistics($form_id, Request $request)
     {
         $form = Form::where('id', $form_id)->with([
             'answers' => function ($query) {
@@ -50,18 +52,28 @@ class FormController extends Controller
             }
         ])
             ->withCount('all_answers_users')
-            ->withCount(['all_answers_users as count_people' => function ($query) {
-                $query->select(DB::raw('count(distinct(id_user))'));
-            }])
+            ->withCount([
+                'all_answers_users as count_people' => function ($query) {
+                    $query->select(DB::raw('count(distinct(id_user))'));
+                }
+            ])
             ->first();
-            //dd($form->toArray());
-        return new FormTransformer($form, ['answers_with_statistics' => ['statistics'], 'count_all_questions_users','answers_with_statistics']);
+
+        return new FormTransformer($form, ['answers_with_statistics' => ['statistics'], 'count_all_questions_users', 'answers_with_statistics']);
     }
+
+    public function dateAnswers($form_id, Request $request)
+    {
+        $form_paginate = FormsUsers::where('id_form', $form_id)
+            ->configure($request->only(['query', 'order', 'per_page', 'page']))->paginate();
+            // dd($form_paginate);
+        return new FormUserTransformer($form_paginate,['date_answers']);
+    }
+
     public function listAnswers(Form $form)
     {
         return new FormTransformer($form, ['answers']);
     }
-
 
     protected function validateForm($request)
     {
@@ -79,5 +91,10 @@ class FormController extends Controller
             // 'id_site'=> ['required',Rule::in(0,1)],
             // 'is_deleted'=> ['required',Rule::in(0,1)]
         ]);
+    }
+    public function delete($form)
+    {
+        $question = Form::get();
+        // return $this->ok(); 
     }
 }

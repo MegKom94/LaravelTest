@@ -15,6 +15,7 @@ class FormTransformer extends Transformer
      */
     public function transform($object, Request $request)
     {
+        // dd(debug_backtrace());
         $response = [
             'id' => (int) $object->id,
             'text' => (string) $object->text,

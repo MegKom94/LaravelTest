@@ -72,7 +72,6 @@ class FormTypeController extends Controller
 
         return $this->ok();
     }
-
     protected function validateFormType($request)
     {
         return $request->validate([
@@ -83,30 +82,5 @@ class FormTypeController extends Controller
             // 'is_opros'=> ['required',Rule::in(0,1), 'integer'],
             // 'id_site'=> ['required',Rule::in(0,1), 'integer']
         ]);
-    }
-    public function createX()
-    {
-        $new_Form_Type = new FormType();
-        $new_Form_Type->fill(array(
-            'title' => $_POST['title'],
-            'description' => $_POST['description'],
-        ));
-        if (isset($_POST['radio1']) == true) {
-            $new_Form_Type->is_opros = 1;
-            $new_Form_Type->is_student = 1;
-            $new_Form_Type->is_empl = 1;
-            echo ('Был выбран 1');
-        } else {
-            if (isset($_POST['radio2']) == true) {
-                $new_Form_Type->is_student = 1;
-                echo ('Был выбран 2');
-            }
-            if (isset($_POST['radio3']) == true) {
-                $new_Form_Type->is_empl = 1;
-                echo ('Был выбран 3');
-            }
-        }
-        $new_Form_Type->save();
-        return $this->ok();
     }
 }
