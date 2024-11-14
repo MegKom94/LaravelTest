@@ -48,10 +48,13 @@ class FormTransformer extends Transformer
         if ($this->needAppend('answers_with_statistics')) {
             $response['answers'] = (new FormAnswerTransformer(
                 $object->answers,
-                array_merge($this->getNestedAppends('answers_with_statistics'),
-                 ['all_answers_users_count' => $object->all_answers_users_count,
-                  'count_users' => $object->count_people
-                ])
+                array_merge(
+                    $this->getNestedAppends('answers_with_statistics'),
+                    [
+                        'all_answers_users_count' => $object->all_answers_users_count,
+                        'count_users' => $object->count_people
+                    ]
+                )
             ))->toArray($request);
         }
         return $response;

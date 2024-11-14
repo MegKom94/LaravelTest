@@ -11,7 +11,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function error($message) {
+    public function error($message)
+    {
         return [
             'status' => 'error',
             'message' => $message,

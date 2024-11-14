@@ -41,7 +41,7 @@ class FormAnswerTransformer extends Transformer
             // }else{
             //     $response['percent_count_users'] = 0;
             // }
-            
+
         }
 
 

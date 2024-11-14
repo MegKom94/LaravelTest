@@ -10,8 +10,8 @@ class FormsUsers extends Model
 {
     use ConfigurableTrait;
     // use SoftDelseteFlagTrait;
-    protected $table='forms_users';
-    protected $fillable=[
+    protected $table = 'forms_users';
+    protected $fillable = [
         'id',
         // 'id_form',
         // 'id_answer',

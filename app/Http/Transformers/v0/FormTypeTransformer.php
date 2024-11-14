@@ -18,13 +18,13 @@ class FormTypeTransformer extends Transformer
     public function transform($object, Request $request)
     {
         $response = [
-            'id' => (int)$object->id,
-            'title' => (string)$object->title,
-            'description'=> (string)$object->description,
-            'is_student'=> (int)$object->is_student,
-            'is_empl'=> (int)$object->is_empl,
-            'is_opros'=> (int)$object->is_opros,
-            'id_site'=> (int)$object->id_site,
+            'id' => (int) $object->id,
+            'title' => (string) $object->title,
+            'description' => (string) $object->description,
+            'is_student' => (int) $object->is_student,
+            'is_empl' => (int) $object->is_empl,
+            'is_opros' => (int) $object->is_opros,
+            'id_site' => (int) $object->id_site,
         ];
         //если передан дополнительный параметр, в этом случае переданы ответы
         if ($this->needAppend('forms')) {

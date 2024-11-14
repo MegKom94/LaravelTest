@@ -37,9 +37,11 @@ class FormTypeController extends Controller
             ->with([
                 'forms' => function ($query) {
                     $query->withCount('all_answers_users');
-                    $query->withCount(['all_answers_users as count_people' => function ($query) {
-                        $query->select(DB::raw('count(distinct(id_user))'));
-                    }]);
+                    $query->withCount([
+                        'all_answers_users as count_people' => function ($query) {
+                            $query->select(DB::raw('count(distinct(id_user))'));
+                        }
+                    ]);
                 },
                 'forms.answers' => function ($query) {
                     //подзапрос где происходит подсчет внутренней связки
@@ -88,8 +90,8 @@ class FormTypeController extends Controller
         if ($form_type->trashed())
             return 'ErrorException';
         else
-        $form_type->delete();
-        
+            $form_type->delete();
+
         return $this->ok();
     }
 }

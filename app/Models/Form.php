@@ -10,10 +10,10 @@ use Tsyama\LaravelSoftDeleteFlag\Traits\SoftDeleteFlagTrait;
 
 class Form extends Model
 {
-     //для сортировки. фильтров, пагинации и т.д.
-     use ConfigurableTrait;
-     //библиотека котрая делает мягкое удаление, написаная
-     use MySoftDeleteFlagTrait;
+    //для сортировки. фильтров, пагинации и т.д.
+    use ConfigurableTrait;
+    //библиотека котрая делает мягкое удаление, написаная
+    use MySoftDeleteFlagTrait;
 
     protected $table = 'forms';
     protected $fillable = [
@@ -34,7 +34,7 @@ class Form extends Model
     const UPDATED_AT = 'date_update';
     //форматт дат Юнихподобные
     protected $dateFormat = 'U';
-    
+
     //замняет стндарный is_deleted
     const DELETED_AT = 'is_deleted';
     //обратная связь
