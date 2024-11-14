@@ -9,6 +9,7 @@ use App\Models\Form;
 use App\Models\FormsUsers;
 use App\Models\FormType;
 use DB;
+use ErrorException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use \Illuminate\Pagination\Paginator;
@@ -37,6 +38,7 @@ class FormController extends Controller
     }
     public function edit(Request $request, Form $form)
     {
+
         $question = $this->validateForm($request);
         $form->fill($question);
         $form->form_type()->associate($question['id_type']);
@@ -65,9 +67,9 @@ class FormController extends Controller
     public function dateAnswers($form_id, Request $request)
     {
         $form_paginate = FormsUsers::where('id_form', $form_id)
-            ->configure($request->only(['query', 'order', 'per_page', 'page']))->paginate();
-            // dd($form_paginate);
-        return new FormUserTransformer($form_paginate,['date_answers']);
+            ->configure(request(['query', 'order', 'per_page', 'page']))->paginate();
+        // dd($form_paginate);
+        return new FormUserTransformer($form_paginate, ['date_answers']);
     }
 
     public function listAnswers(Form $form)
@@ -89,12 +91,27 @@ class FormController extends Controller
             // 'link'=> ['nullable'],
             // 'is_konkurs'=> ['required',Rule::in(0,1)],
             // 'id_site'=> ['required',Rule::in(0,1)],
-            // 'is_deleted'=> ['required',Rule::in(0,1)]
+            'is_deleted' => ['required', Rule::in(0, 1)]
         ]);
     }
-    public function delete($form)
+    public function delete(Form $form)
     {
-        $question = Form::get();
-        // return $this->ok(); 
+        if ($form->trashed())
+            return 'ErrorException';
+        else
+            $form->delete();
+
+        return $this->ok();
+        // forceDelete() совсем удаляет из бд
+
     }
+    // public function restore(Form $form)
+    // {
+    //     if ($form->trashed())
+    //         $form->restore();
+    //     else
+    //         return 'ErrorException';
+
+    //     return $this->ok();
+    // }
 }

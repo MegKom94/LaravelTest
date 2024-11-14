@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Common\Database\ConfigurableTrait;
+use App\Common\Database\MySoftDeleteFlagTrait;
 use Illuminate\Database\Eloquent\Model;
 use Tsyama\LaravelSoftDeleteFlag\Traits\SoftDeleteFlagTrait;
 
@@ -10,7 +11,7 @@ class FormType extends Model
     //для сортировки. фильтров, пагинации и т.д.
     use ConfigurableTrait;
     //библиотека котрая делает мягкое удаление
-    use SoftDeleteFlagTrait;
+    use MySoftDeleteFlagTrait;
 
     protected $table = 'forms_types';
     //все поля котрые должны охранятся

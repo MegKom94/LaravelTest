@@ -83,4 +83,13 @@ class FormTypeController extends Controller
             // 'id_site'=> ['required',Rule::in(0,1), 'integer']
         ]);
     }
+    public function delete(FormType $form_type)
+    {
+        if ($form_type->trashed())
+            return 'ErrorException';
+        else
+        $form_type->delete();
+        
+        return $this->ok();
+    }
 }
