@@ -31,7 +31,7 @@ class FormController extends Controller
     {
         $question = $this->validateForm($request);
         $form->fill($question);
-        $form->form_type()->associate($question['id_type']);
+        $form->formType()->associate($question['id_type']);
         $form->save();
 
         return $this->ok();
@@ -41,7 +41,7 @@ class FormController extends Controller
 
         $question = $this->validateForm($request);
         $form->fill($question);
-        $form->form_type()->associate($question['id_type']);
+        $form->formType()->associate($question['id_type']);
         $form->save();
 
         return $this->ok();
@@ -50,12 +50,12 @@ class FormController extends Controller
     {
         $form = Form::where('id', $form_id)->with([
             'answers' => function ($query) {
-                $query->withCount('answers_users');
+                $query->withCount('answersUsers');
             }
         ])
-            ->withCount('all_answers_users')
+            ->withCount('allAnswersUsers')
             ->withCount([
-                'all_answers_users as count_people' => function ($query) {
+                'allAnswersUsers as count_people' => function ($query) {
                     $query->select(DB::raw('count(distinct(id_user))'));
                 }
             ])

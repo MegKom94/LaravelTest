@@ -24,7 +24,7 @@ class FormAnswerTransformer extends Transformer
         ];
 
         if ($this->needAppend('statistics')) {
-            $response['count_selected_answers'] = $object->answers_users()->count();
+            $response['count_selected_answers'] = $object->answersUsers()->count();
             $response['count_answers_users'] = (int) $object->answers_users_count;
             //процент кол-ва выбранного ответа от общего кол-ва ответов на вопрос
             // $all_answers_users_count = (int) $this->getNestedAppends('all_answers_users_count')[0];

@@ -38,12 +38,12 @@ class FormTransformer extends Transformer
             ))->toArray($request);
         }
         if ($this->needAppend('count_all_questions_users')) {
-            // $response['count_answers'] = $object->answers_users()->count();
+            // $response['count_answers'] = $object->answersUsers()->count();
             // dd($object->toArray());
             // dd($object->answers_users_count);
             $response['count_answers'] = $object->all_answers_users_count;
 
-            // $response['percentage_of_responses'] = (number_format($object->answers_users()->count()/$object->answers_users()->count()));
+            // $response['percentage_of_responses'] = (number_format($object->answersUsers()->count()/$object->answersUsers()->count()));
         }
         if ($this->needAppend('answers_with_statistics')) {
             $response['answers'] = (new FormAnswerTransformer(

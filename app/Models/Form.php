@@ -38,11 +38,11 @@ class Form extends Model
     //замняет стндарный is_deleted
     const DELETED_AT = 'is_deleted';
     //обратная связь
-    public function form_type()
+    public function formType()
     {
         return $this->belongsTo(FormType::class, 'id_type');
     }
-    public function all_answers_users()
+    public function allAnswersUsers()
     {
         return $this->hasMany(FormsUsers::class, 'id_form');
     }

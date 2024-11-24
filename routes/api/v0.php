@@ -16,7 +16,7 @@ Route::group(['prefix' => 'anketa'], function () {
         // Route::any('/{form}/restore', 'FormController@restore')->withTrashed();
         Route::any('/{form_id}/statistics', 'FormController@statistics');
         Route::any('/{form_id}/date_answers', 'FormController@dateAnswers');
-        Route::any('/{form}/list_answers', 'FormController@listAnswers');
+        Route::any('/{form}/list_answers', 'FormController@listAnswers');//get?
     });
 
     Route::group(['prefix' => 'answer'], function () {
@@ -31,8 +31,5 @@ Route::group(['prefix' => 'anketa'], function () {
     Route::any('/{form_type_id}/statistics', 'FormTypeController@statistics');
     Route::any('/{form_type}/list_questions', 'FormTypeController@listQuestions');
     Route::any('/{form_type}/delete', 'FormTypeController@delete')->withTrashed();
-
-
-
 
 });

@@ -21,7 +21,7 @@ class FormAnswer extends Model
     {
         return $this->belongsTo(Form::class, 'id_form');
     }
-    public function answers_users()
+    public function answersUsers()
     {
         return $this->hasMany(FormsUsers::class, 'id_answer');
     }

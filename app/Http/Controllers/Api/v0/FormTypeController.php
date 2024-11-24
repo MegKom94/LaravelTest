@@ -36,16 +36,16 @@ class FormTypeController extends Controller
             //жадная загрузка- достаем ("вопросы","связку связки") ->объЯВЛЯЕМ УСЛОВИЕ ПО КОТРОЙ БУЕТ ПРОХОДИТЬ ЖАДНАЯ СВЯЗКА 
             ->with([
                 'forms' => function ($query) {
-                    $query->withCount('all_answers_users');
+                    $query->withCount('allAnswersUsers');
                     $query->withCount([
-                        'all_answers_users as count_people' => function ($query) {
+                        'allAnswersUsers as count_people' => function ($query) {
                             $query->select(DB::raw('count(distinct(id_user))'));
                         }
                     ]);
                 },
                 'forms.answers' => function ($query) {
                     //подзапрос где происходит подсчет внутренней связки
-                    $query->withCount('answers_users');
+                    $query->withCount('answersUsers');
                 }
             ])
             ->first();
